@@ -12,15 +12,17 @@ public class GetProductDto {
     private double price;
     private String imageUrl;
     private String description;
-    private String category;
+    private String categoryName;
 
     public static GetProductDto from(Product product) {
-        GetProductDto GetProductDto = new GetProductDto();
-        GetProductDto.setId(product.getId());
-        GetProductDto.setDescription(product.getDescription());
-        GetProductDto.setImageUrl(product.getImageUrl());
-        GetProductDto.setPrice(product.getPrice());
+        GetProductDto getProductDto = new GetProductDto();
+        getProductDto.setId(product.getId());
+        getProductDto.setTitle(product.getTitle());
+        getProductDto.setDescription(product.getDescription());
+        getProductDto.setImageUrl(product.getImageUrl());
+        getProductDto.setPrice(product.getPrice());
+        getProductDto.setCategoryName(product.getCategoryName());
 
-        return GetProductDto;
+        return getProductDto;
     }
 }

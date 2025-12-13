@@ -1,5 +1,6 @@
 package com.scaler.ecommerceEngine.controllers;
 
+import com.scaler.ecommerceEngine.dtos.ErrorResponseDto;
 import com.scaler.ecommerceEngine.dtos.products.*;
 import com.scaler.ecommerceEngine.models.Product;
 import com.scaler.ecommerceEngine.services.ProductService;
@@ -33,10 +34,9 @@ public class ProductController {
             createProductRequestDto.toProduct()
         );
 
-        return CreateProductResponseDto.fromProduct(
+        return CreateProductResponseDto.from(
                 product
         );
-        //        return "This product is priced at: " + createProductRequestDto.getPrice();
     }
 
     @GetMapping("")
@@ -76,10 +76,5 @@ public class ProductController {
     }
 
     public void replaceProduct() {}
-
-//    @RequestMapping(name = "NAMAN", value = "/products/")
-//    public String tabgushijhd() {
-//        return "Magic";
-//    }
 
 }

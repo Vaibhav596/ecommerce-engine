@@ -8,9 +8,5 @@ import java.util.*;
 @Getter
 @Setter
 public class GetAllProductsResponseDto {
-    private List<GetProductDto> products = new ArrayList<>();
-
-//    public void setProducts(List<GetProductDto> getProductDtos) {
-//        products.addAll(getProductDtos);
-//    }
+    private List<GetProductDto> products;
 }

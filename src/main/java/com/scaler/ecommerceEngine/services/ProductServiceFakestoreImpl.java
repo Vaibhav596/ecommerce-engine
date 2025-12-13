@@ -6,9 +6,11 @@ import com.scaler.ecommerceEngine.models.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -41,7 +43,7 @@ public class ProductServiceFakestoreImpl implements ProductService {
         product1.setId(response.getId());
         product1.setTitle(response.getTitle());
         product1.setDescription(response.getDescription());
-        product1.setImageUrl(response.getImageUrl());
+        product1.setImageUrl(response.getImage());
         product1.setCategoryName(response.getCategory());
         product1.setPrice(response.getPrice());
 
@@ -54,15 +56,9 @@ public class ProductServiceFakestoreImpl implements ProductService {
                 FakeStoreCreateProductResponseDto[].class
         );
 
-        List<FakeStoreCreateProductResponseDto> responseDtoList = Stream.of(response).toList();
-
-        List<Product> products = new ArrayList<>();
-
-        for (FakeStoreCreateProductResponseDto fakeStoreCreateProductResponseDto : responseDtoList) {
-            products.add(fakeStoreCreateProductResponseDto.toProduct());
-        }
-
-        return products;
+        return Arrays.stream(response)
+                .map(FakeStoreCreateProductResponseDto::toProduct)
+                .toList();
     }
 
     @Override
