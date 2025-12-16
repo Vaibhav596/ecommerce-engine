@@ -1,5 +1,6 @@
 package com.scaler.ecommerceEngine.dtos.products;
 
+import com.scaler.ecommerceEngine.models.Category;
 import com.scaler.ecommerceEngine.models.Product;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,9 @@ public class CreateProductDto {
         product.setDescription(this.description);
         product.setPrice(this.price);
         product.setImageUrl(this.imageUrl);
-        product.setCategoryName(this.categoryName);
+        Category category = new Category();
+        category.setName(this.categoryName);
+        product.setCategory(category);
 
         return product;
     }

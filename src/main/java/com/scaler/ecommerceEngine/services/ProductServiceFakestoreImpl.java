@@ -2,6 +2,7 @@ package com.scaler.ecommerceEngine.services;
 
 import com.scaler.ecommerceEngine.dtos.fakeStore.FakeStoreCreateProductRequestDto;
 import com.scaler.ecommerceEngine.dtos.fakeStore.FakeStoreCreateProductResponseDto;
+import com.scaler.ecommerceEngine.models.Category;
 import com.scaler.ecommerceEngine.models.Product;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -27,7 +28,7 @@ public class ProductServiceFakestoreImpl implements ProductService {
     @Override
     public Product createProduct(Product product) {
         FakeStoreCreateProductRequestDto request = new FakeStoreCreateProductRequestDto();
-        request.setCategory(product.getCategoryName());
+        request.setCategory(product.getCategory().getName());
         request.setTitle(product.getTitle());
         request.setImageUrl(product.getImageUrl());
         request.setDescription(product.getDescription());
@@ -44,7 +45,9 @@ public class ProductServiceFakestoreImpl implements ProductService {
         product1.setTitle(response.getTitle());
         product1.setDescription(response.getDescription());
         product1.setImageUrl(response.getImage());
-        product1.setCategoryName(response.getCategory());
+        Category category = new Category();
+        category.setName(response.getCategoryName());
+        product1.setCategory(category);
         product1.setPrice(response.getPrice());
 
         return product1;

@@ -21,7 +21,7 @@ public class GetProductDto {
         getProductDto.setDescription(product.getDescription());
         getProductDto.setImageUrl(product.getImageUrl());
         getProductDto.setPrice(product.getPrice());
-        getProductDto.setCategoryName(product.getCategoryName());
+        getProductDto.setCategoryName(product.getCategory().getName());
 
         return getProductDto;
     }
