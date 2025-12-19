@@ -5,15 +5,12 @@ import com.scaler.ecommerceEngine.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-    // Update is also done using save()
-    // If the product you try to save has an ID:
-    // JPA will see if a product with that ID exists:
-    // If no -> Insert
-    // If yes -> Update
-    @Override
-    Product save(Product p);
+import java.util.List;
+import java.util.Optional;
 
-    @Override
-    void delete(Product entity);
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+
+    Optional<Category> findByName(String name);
+
+    Category save(Category category);
 }

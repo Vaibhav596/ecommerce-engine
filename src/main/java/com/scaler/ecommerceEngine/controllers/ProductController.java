@@ -2,6 +2,7 @@ package com.scaler.ecommerceEngine.controllers;
 
 import com.scaler.ecommerceEngine.dtos.ErrorResponseDto;
 import com.scaler.ecommerceEngine.dtos.products.*;
+import com.scaler.ecommerceEngine.exceptions.ProductNotFoundException;
 import com.scaler.ecommerceEngine.models.Product;
 import com.scaler.ecommerceEngine.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ public class ProductController {
 
 
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+    public ProductController(@Qualifier("dbProductService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -64,15 +65,19 @@ public class ProductController {
 
     @PatchMapping("/{id}")
     public PatchProductResponseDto updateProduct(@PathVariable("id") Long productId, @RequestBody CreateProductDto productDto) {
-        Product product = productService.partialUpdateProduct(
-                productId,
-                productDto.toProduct()
-        );
+        try {
+             Product product = productService.partialUpdateProduct(
+                    productId,
+                    productDto.toProduct()
+            );
 
-        PatchProductResponseDto response = new PatchProductResponseDto();
-        response.setProduct(GetProductDto.from(product));
+            PatchProductResponseDto response = new PatchProductResponseDto();
+            response.setProduct(GetProductDto.from(product));
 
-        return response;
+            return response;
+        } catch (ProductNotFoundException e){
+            return null;
+        }
     }
 
     public void replaceProduct() {}
