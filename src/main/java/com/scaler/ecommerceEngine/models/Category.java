@@ -1,11 +1,10 @@
 package com.scaler.ecommerceEngine.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
@@ -14,13 +13,18 @@ import java.util.List;
 @Entity
 public class Category extends BaseModel {
     private String name;
+    @Basic(fetch = FetchType.LAZY)
     private String description;
-//    @OneToMany(mappedBy = "category")
+
+//    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Product> featuredProducts;
 
-    @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @Fetch(FetchMode.JOIN)
     private List<Product> products;
 
     @OneToOne(cascade = {CascadeType.PERSIST})
     private Subcategory subcategory;
+
+    private int countOfProducts;
 }

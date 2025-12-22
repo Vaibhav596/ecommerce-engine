@@ -23,6 +23,8 @@ public class ProductServiceDBImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
+        // #Commenting below part because cascades handles it
+
         String categoryName = product.getCategory().getName();
         Optional<Category> category = categoryRepository.findByName(categoryName);
 
@@ -39,7 +41,6 @@ public class ProductServiceDBImpl implements ProductService {
         product.setCategory(toBePutInProduct);
 
         categoryRepository.save(toBePutInProduct);
-
 
         Product savedProduct = productRepository.save(product);
 
